@@ -862,7 +862,7 @@
 						});
 						chatBot.start();
 					},
-					end: function () {
+					stop: function () {
 						canvas.style.display = '';
 						renderer.domElement.style.display = 'none';
 						document.getElementById('chat').style.display = 'none';

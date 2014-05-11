@@ -197,7 +197,7 @@ define([], function () {
 			textarea.value = '';
 
 			if (timeout) {
-				cancelTimeout(timeout);
+				clearTimeout(timeout);
 			}
 		};
 
