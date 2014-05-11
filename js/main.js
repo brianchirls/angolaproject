@@ -738,11 +738,13 @@
 							camera.aspect = outputAspect;
 						}
 
-						controls.handleResize();
+						//controls.handleResize();
+						controls.viewHalfX = window.innerWidth / 2;
+						controls.viewHalfY = window.innerHeight / 2;
+
 						camera.updateProjectionMatrix();
 
 						if (!navigating) {
-							//camera.rotation.x = Math.PI / 2;
 							camera.position.z = BOX_SPACING + BOX_WIDTH / 2 + cameraHeight / (2 * Math.tan(FOV_RADIANS / 2));
 						}
 
@@ -909,7 +911,7 @@
 			window.addEventListener('resize', resize, false);
 			resize();
 
-			nextScenario(4);
+			nextScenario(0);
 			target.source = select;
 
 			seriously.go(function () {
