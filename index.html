@@ -108,6 +108,17 @@
 				cursor: pointer;
 			}
 
+			#prevbutton {
+				position: absolute;
+				top: 5%;
+				right: 10%;
+				z-index: 999;
+				width: 5%;
+				cursor: pointer;
+				-webkit-transform: scale(-1);
+				transform: scale(-1);
+			}
+
 			#play {
 				overflow: hidden;
 				position: absolute;
@@ -172,6 +183,7 @@
 		<canvas id="canvas" width="1280" height="720"></canvas>
 		<img src="images/arrow-21.svg" id="leftarrow" class="bigarrow"/>
 		<img src="images/arrow-21.svg" id="rightarrow" class="bigarrow"/>
+		<img src="images/next-3-icon.svg" id="prevbutton"/>
 		<img src="images/next-3-icon.svg" id="nextbutton"/>
 
 		<div id="chat">

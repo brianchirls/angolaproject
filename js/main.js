@@ -931,13 +931,16 @@
 			target.source = select;
 
 			document.getElementById('nextbutton').addEventListener('click', nextScenario, false);
+			document.getElementById('prevbutton').addEventListener('click', function () {
+				nextScenario(Math.max(0, activeIndex - 1));
+			}, false);
 
 			seriously.go(function () {
 				activeScenario.render();
 			});
 		}
 
-		init();
-		//window.onload = init;
+		//init();
+		window.onload = init;
 	});
 }());
