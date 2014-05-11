@@ -200,7 +200,6 @@
 								diff = now - lastTimerTime;
 								saturation = Math.max(-1, saturation - diff * SATURATION_DECLINE_RATE);
 								hueSat.saturation = saturation;
-								seriously.render();
 							}
 
 							lastTimerTime = now;
@@ -891,7 +890,13 @@
 		}
 
 		function init() {
-			var i;
+			var i,
+				allVideos;
+
+			allVideos = document.getElementsByTagName('video');
+			for (i = 0; i < allVideos.length; i++) {
+				allVideos[i].load();
+			}
 
 			seriously = new Seriously();
 
@@ -919,7 +924,7 @@
 			});
 		}
 
-		//init();
-		window.onload = init;
+		init();
+		//window.onload = init;
 	});
 }());
