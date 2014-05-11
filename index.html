@@ -1,0 +1,142 @@
+<html>
+	<head>
+		<title>The Angola Project</title>
+		<style type="text/css">
+			body {
+				margin: 0;
+				font-family: helvetica, arial, sans-serif;
+				background-color: black;
+			}
+
+			#canvas {
+				border: darkgrey solid 1px;
+				max-width: 100%;
+			}
+
+			#controls {
+				position: absolute;
+				z-index: 99;
+				top: 0;
+				left: 0;
+				opacity: 0.3;
+				padding: 10px;
+				background-color: rgba(0, 0, 0, 0.8);
+
+				display: none;
+			}
+
+			#train {
+				/* display: none; */
+				max-width: 200px;
+			}
+
+			#controls > label {
+				color: white;
+				display: block;
+			}
+
+			#controls input[type=range] {
+				width: 600px;
+			}
+
+			#controls:hover {
+				opacity: 1;
+			}
+
+			#resources {
+				display: none;
+			}
+
+			#play {
+				position: absolute;
+				top: 20%;
+				left: 10%;
+				display: none;
+				cursor: pointer;
+			}
+
+			#chat {
+				position: absolute;
+				right: 10%;
+				bottom: 0;
+				width: 200px;
+				background-color: white;
+				display: none;
+			}
+
+			#chat > * {
+				padding: 4px;
+			}
+
+			#chat-title {
+				background-color: lightblue;
+			}
+
+			#chat-content {
+				min-height: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="resources">
+			<video id="train" controls loop preload="auto">
+				<source src="video/trainintro.mp4" type="video/mp4"/>
+				<source src="video/trainintro.webm" type="video/webm"/>
+			</video>
+
+			<video id="jxwaiting" controls preload="metadata" loop>
+				<source src="video/jxwaiting.mp4" type="video/mp4"/>
+				<source src="video/jxwaiting.webm" type="video/webm"/>
+			</video>
+
+			<video id="jxintro" controls preload="metadata">
+				<source src="video/jxintro.mp4" type="video/mp4"/>
+				<source src="video/jxintro.webm" type="video/webm"/>
+			</video>
+
+			<!-- train cube videos -->
+			<video id="mines" controls preload="metadata">
+				<source src="video/mines.mp4" type="video/mp4"/>
+				<source src="video/german.webm" type="video/webm"/>
+			</video>
+
+			<video id="germans" controls preload="metadata">
+				<source src="video/germans.mp4" type="video/mp4"/>
+				<source src="video/germans.webm" type="video/webm"/>
+			</video>
+
+			<video id="dancing" controls preload="metadata">
+				<source src="video/dancing.mp4" type="video/mp4"/>
+				<source src="video/dancing.webm" type="video/webm"/>
+			</video>
+
+			<video id="trainride" controls preload="metadata">
+				<source src="video/trainride.mp4" type="video/mp4"/>
+				<source src="video/trainride.webm" type="video/webm"/>
+			</video>
+
+			<!-- for hall of video cubes -->
+			<video id="grideo" controls preload="metadata" loop>
+				<source src="video/grideo.mp4" type="video/mp4"/>
+				<source src="video/grideo.webm" type="video/webm"/>
+			</video>
+
+			<img id="brush"	src="images/brush.png"/>
+		</div>
+		<svg id="play" style="overflow: hidden; position: absolute; -webkit-transform: scale(4);" xmlns="http://www.w3.org/2000/svg" width="40" version="1.1" height="40"><defs></defs><path transform="matrix(1,0,0,1,4,4)" opacity="0" stroke-linejoin="round" stroke-width="3" d="M6.684,25.682L24.316,15.5L6.684,5.318V25.682Z" stroke="#ffffff" fill="none" style="stroke-linejoin: round; opacity: 0;"></path><path transform="matrix(1,0,0,1,4,4)" d="M6.684,25.682L24.316,15.5L6.684,5.318V25.682Z" stroke="none" fill="#333333" style=""></path><rect opacity="0" style="opacity: 0;" stroke="#000" fill="#000000" ry="0" rx="0" r="0" height="32" width="32" y="0" x="0"></rect></svg>
+		<div id="controls">
+			<!--
+			<label>Saturation <input type="range" id="saturation" min="-1" max="1" value="0" step="0.00001"/></label>
+			-->
+		</div>
+		<canvas id="canvas" width="1280" height="720"></canvas>
+		<div id="chat">
+			<div id="chat-title">Jeremy</div>
+			<div id="chat-content"></div>
+			<textarea id="chat-type" style="width: 100%; height: 60px;"></textarea>
+		</div>
+		<script type="text/javascript" src="js/lib/require.js" data-main="js/main"></script>
+		<script type="text/javascript">
+		</script>
+	</body>
+</html>
