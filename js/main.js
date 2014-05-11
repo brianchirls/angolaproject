@@ -721,6 +721,8 @@
 					boxesGeometry,
 					boxes,
 
+					audio = document.getElementById('fabbybrice'),
+
 					controls,
 					navigating = false,
 					clock = new THREE.Clock(),
@@ -863,6 +865,11 @@
 
 						grideo.play();
 
+						audio.play();
+						if (audio.readyState >= audio.HAVE_METADATA) {
+							audio.currentTime = 0;
+						}
+
 						document.getElementById('chat').style.display = 'block';
 
 						chatBot = new ChatBot({
@@ -882,6 +889,7 @@
 						renderer.domElement.style.display = 'none';
 						document.getElementById('chat').style.display = 'none';
 
+						audio.pause();
 						grideo.pause();
 						chatBot.destroy();
 					},
