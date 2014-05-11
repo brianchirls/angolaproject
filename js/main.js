@@ -463,9 +463,9 @@
 					renderTarget,
 
 					trainVideos = [
-						document.getElementById('mines'),
-						document.getElementById('germans'),
 						document.getElementById('trainride'),
+						document.getElementById('germans'),
+						document.getElementById('mines'),
 						document.getElementById('dancing')
 					],
 					trainTextures = [],
@@ -501,6 +501,7 @@
 					todo: figure out which one(s) are visible and only update those
 					*/
 					for (i = 0; i < trainVideos.length; i++) {
+						trainVideos[i].volume = 0.5;
 						if(trainVideos[i].readyState >= trainVideo.HAVE_ENOUGH_DATA){
 							trainTextures[i].needsUpdate = true;
 						}
@@ -741,7 +742,7 @@
 						if (!camera) {
 							camera = new THREE.PerspectiveCamera(FOV, outputAspect, 1, 2000);
 							controls = new THREE.FirstPersonControls( camera, renderer.domElement );
-							controls.movementSpeed = 2;
+							controls.movementSpeed = 3;
 							controls.lookSpeed = 1 / 20;
 							controls.lookVertical = false;
 						} else {
