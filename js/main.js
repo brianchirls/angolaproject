@@ -950,6 +950,14 @@
 				nextScenario(Math.max(0, activeIndex - 1));
 			}, false);
 
+			window.addEventListener('keydown', function (evt) {
+				if (evt.which === 33) { //page up
+					nextScenario(Math.max(0, activeIndex - 1)); //previous chapter
+				} else if (evt.which === 34) { //page down
+					nextScenario(); //next chapter
+				}
+			}, false);
+
 			seriously.go(function () {
 				activeScenario.render();
 			});
