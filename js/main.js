@@ -639,7 +639,7 @@
 							trainVideos[i].play();
 						}
 					},
-					end: function () {
+					stop: function () {
 						canvas.style.display = '';
 						renderer.domElement.style.display = 'none';
 
