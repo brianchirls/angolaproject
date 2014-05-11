@@ -475,6 +475,8 @@
 					trainTextures = [],
 					trainMaterials = [],
 
+					audio = document.getElementById('angolavo'),
+
 					leftArrow = document.getElementById('leftarrow'),
 					rightArrow = document.getElementById('rightarrow'),
 
@@ -505,7 +507,6 @@
 					todo: figure out which one(s) are visible and only update those
 					*/
 					for (i = 0; i < trainVideos.length; i++) {
-						trainVideos[i].volume = 0.5;
 						if(trainVideos[i].readyState >= trainVideo.HAVE_ENOUGH_DATA){
 							trainTextures[i].needsUpdate = true;
 						}
@@ -585,6 +586,8 @@
 				}
 
 				for (i = 0; i < trainVideos.length; i++) {
+					trainVideos[i].volume = 0.1;
+
 					tex = new THREE.Texture(trainVideos[i]);
 					tex.minFilter = THREE.LinearFilter;
 					tex.magFilter = THREE.LinearFilter;
@@ -643,6 +646,11 @@
 						for (i = 0; i < trainVideos.length; i++) {
 							trainVideos[i].play();
 						}
+
+						audio.play();
+						if (audio.readyState >= audio.HAVE_METADATA) {
+							audio.currentTime = 0;
+						}
 					},
 					stop: function () {
 						canvas.style.display = '';
@@ -657,6 +665,8 @@
 						for (i = 0; i < trainVideos.length; i++) {
 							trainVideos[i].pause();
 						}
+
+						audio.pause();
 					},
 					render: function () {
 						var now = Date.now(),
