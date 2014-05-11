@@ -95,9 +95,9 @@
 			plane = new THREE.PlaneGeometry(BOX_WIDTH, BOX_HEIGHT);
 			planeTransforms = [
 				(new THREE.Matrix4()).setPosition(new THREE.Vector3(0, 0, BOX_SPACING + BOX_WIDTH / 2)),
-				(new THREE.Matrix4()).makeRotationY(Math.PI / 2).setPosition(new THREE.Vector3(-BOX_SPACING - BOX_WIDTH / 2, 0, 0)),
+				(new THREE.Matrix4()).makeRotationY(-Math.PI / 2).setPosition(new THREE.Vector3(-BOX_SPACING - BOX_WIDTH / 2, 0, 0)),
 				(new THREE.Matrix4()).setPosition(new THREE.Vector3(0, 0, -BOX_SPACING - BOX_WIDTH / 2)),
-				(new THREE.Matrix4()).makeRotationY(-Math.PI / 2).setPosition(new THREE.Vector3(BOX_SPACING + BOX_WIDTH / 2, 0, 0))
+				(new THREE.Matrix4()).makeRotationY(Math.PI / 2).setPosition(new THREE.Vector3(BOX_SPACING + BOX_WIDTH / 2, 0, 0))
 			];
 
 			boxGeometry = new THREE.Geometry();
@@ -471,6 +471,9 @@
 					trainTextures = [],
 					trainMaterials = [],
 
+					leftArrow = document.getElementById('leftarrow'),
+					rightArrow = document.getElementById('rightarrow'),
+
 					i,
 					tex,
 					mat,
@@ -627,6 +630,10 @@
 						renderer.domElement.style.display = '';
 
 						window.addEventListener('keydown', keyPress, true);
+						leftArrow.addEventListener('click', left, false);
+						rightArrow.addEventListener('click', right, false);
+						leftArrow.style.display = 'block';
+						rightArrow.style.display = 'block';
 
 						for (i = 0; i < trainVideos.length; i++) {
 							trainVideos[i].play();
@@ -637,6 +644,10 @@
 						renderer.domElement.style.display = 'none';
 
 						window.removeEventListener('keydown', keyPress, true);
+						leftArrow.removeEventListener('click', left, false);
+						rightArrow.removeEventListener('click', right, false);
+						leftArrow.style.display = '';
+						rightArrow.style.display = '';
 
 						for (i = 0; i < trainVideos.length; i++) {
 							trainVideos[i].pause();
@@ -918,6 +929,8 @@
 
 			nextScenario(0);
 			target.source = select;
+
+			document.getElementById('nextbutton').addEventListener('click', nextScenario, false);
 
 			seriously.go(function () {
 				activeScenario.render();

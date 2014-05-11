@@ -75,6 +75,46 @@
 			#chat-content {
 				min-height: 100px;
 			}
+
+			.bigarrow {
+				position: absolute;
+				left: 0;
+				top: calc(50% - 128px);
+				width: 128px;
+				height: 512px;
+				margin-top: -128px;
+				cursor: pointer;
+				display: none;
+				opacity: 0.5;
+			}
+
+			.bigarrow:hover {
+				opacity: 1;
+			}
+
+			#rightarrow {
+				left: auto;
+				right: 0;
+				-webkit-transform: scale(-1);
+				transform: scale(-1);
+			}
+
+			#nextbutton {
+				position: absolute;
+				top: 5%;
+				right: 5%;
+				z-index: 999;
+				width: 5%;
+				cursor: pointer;
+			}
+
+			#play {
+				overflow: hidden;
+				position: absolute;
+				transform: scale(4);
+				-webkit-transform: scale(4);
+				fill: rgba(200, 200, 200, 0.5);
+			}
 		</style>
 	</head>
 	<body>
@@ -123,13 +163,17 @@
 
 			<img id="brush"	src="images/brush.png"/>
 		</div>
-		<svg id="play" style="overflow: hidden; position: absolute; -webkit-transform: scale(4);" xmlns="http://www.w3.org/2000/svg" width="40" version="1.1" height="40"><defs></defs><path transform="matrix(1,0,0,1,4,4)" opacity="0" stroke-linejoin="round" stroke-width="3" d="M6.684,25.682L24.316,15.5L6.684,5.318V25.682Z" stroke="#ffffff" fill="none" style="stroke-linejoin: round; opacity: 0;"></path><path transform="matrix(1,0,0,1,4,4)" d="M6.684,25.682L24.316,15.5L6.684,5.318V25.682Z" stroke="none" fill="#333333" style=""></path><rect opacity="0" style="opacity: 0;" stroke="#000" fill="#000000" ry="0" rx="0" r="0" height="32" width="32" y="0" x="0"></rect></svg>
+		<svg id="play"\ xmlns="http://www.w3.org/2000/svg" width="40" version="1.1" height="40"><defs></defs><path transform="matrix(1,0,0,1,4,4)" opacity="0" stroke-linejoin="round" stroke-width="3" d="M6.684,25.682L24.316,15.5L6.684,5.318V25.682Z" stroke="#ffffff" fill="none" style="stroke-linejoin: round; opacity: 0;"></path><path transform="matrix(1,0,0,1,4,4)" d="M6.684,25.682L24.316,15.5L6.684,5.318V25.682Z" stroke="none" fill="rgba(200, 200, 200, 0.5)" style=""></path><rect opacity="0" style="opacity: 0;" stroke="#000" fill="#000000" ry="0" rx="0" r="0" height="32" width="32" y="0" x="0"></rect></svg>
 		<div id="controls">
 			<!--
 			<label>Saturation <input type="range" id="saturation" min="-1" max="1" value="0" step="0.00001"/></label>
 			-->
 		</div>
 		<canvas id="canvas" width="1280" height="720"></canvas>
+		<img src="images/arrow-21.svg" id="leftarrow" class="bigarrow"/>
+		<img src="images/arrow-21.svg" id="rightarrow" class="bigarrow"/>
+		<img src="images/next-3-icon.svg" id="nextbutton"/>
+
 		<div id="chat">
 			<div id="chat-title">Jeremy</div>
 			<div id="chat-content"></div>
