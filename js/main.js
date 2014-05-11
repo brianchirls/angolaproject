@@ -309,6 +309,10 @@
 						window.addEventListener('mousemove', mouseMove, false);
 						document.getElementById('chat').style.display = 'block';
 
+						accumulator.source = white;
+						accumulator.render();
+						accumulator.source = brush;
+
 						chatBot = new ChatBot({
 							messages: document.getElementById('chat-content'),
 							textarea: document.getElementById('chat-type'),
