@@ -12,6 +12,9 @@
 			},
 			'three': {
 				exports: 'THREE'
+			},
+			'lib/FirstPersonControls': {
+				deps: ['three']
 			}
 		}
 	});
@@ -22,6 +25,7 @@
 		'three',
 		'chatbot',
 
+		'lib/FirstPersonControls',
 		'lib/effects/seriously.blend',
 		'lib/effects/seriously.select',
 		'lib/effects/seriously.simplex',
@@ -685,10 +689,16 @@
 					tex,
 					mat,
 
+					chatBot,
+
 					box,
 					boxMaterial,
 					boxesGeometry,
 					boxes,
+
+					controls,
+					navigating = false,
+					clock = new THREE.Clock(),
 
 					outputHeight,
 					outputWidth,
@@ -720,12 +730,22 @@
 
 						if (!camera) {
 							camera = new THREE.PerspectiveCamera(FOV, outputAspect, 1, 2000);
+							controls = new THREE.FirstPersonControls( camera, renderer.domElement );
+							controls.movementSpeed = 2;
+							controls.lookSpeed = 1 / 20;
+							controls.lookVertical = false;
 						} else {
 							camera.aspect = outputAspect;
 						}
 
-						camera.position.z = BOX_SPACING + BOX_WIDTH / 2 + cameraHeight / (2 * Math.tan(FOV_RADIANS / 2));
+						controls.handleResize();
 						camera.updateProjectionMatrix();
+
+						if (!navigating) {
+							//camera.rotation.x = Math.PI / 2;
+							camera.position.z = BOX_SPACING + BOX_WIDTH / 2 + cameraHeight / (2 * Math.tan(FOV_RADIANS / 2));
+						}
+
 					}
 				}
 
@@ -782,14 +802,21 @@
 					}
 				}
 
+				boxesGeometry.applyMatrix( new THREE.Matrix4().makeTranslation((BOX_SPREAD - BOX_WIDTH) / 2 + BOX_SPACING, 0, (BOX_SPREAD - BOX_WIDTH) / 2 + BOX_SPACING) );
+
 				var UVs = boxesGeometry.faceVertexUvs[0];
 				for (i = 0; i < UVs.length; i+= 2) {
 					setUV(UVs[i], UVs[i + 1]);
 				}
 				boxesGeometry.uvsNeedUpdate = true;
 
-				boxes = new THREE.Mesh(boxesGeometry, boxMaterial);
-				scene.add(boxes);
+				for (i = -2; i < 2; i++) {
+					for (j = -2; j < 2; j++) {
+						boxes = new THREE.Mesh(boxesGeometry, boxMaterial);
+						boxes.position.set(i * BOX_SPREAD * 4, 0, j * BOX_SPREAD * 4);
+						scene.add(boxes);
+					}
+				}
 
 				return {
 					aliases: {
@@ -808,22 +835,37 @@
 						renderer.domElement.style.display = '';
 
 						grideo.play();
+
+						document.getElementById('chat').style.display = 'block';
+
+						chatBot = new ChatBot({
+							messages: document.getElementById('chat-content'),
+							textarea: document.getElementById('chat-type'),
+							name: 'Jeremy',
+							dialog: [
+								{
+									prompt: 'We have a lot more exploring to do.'
+								}
+							]
+						});
+						chatBot.start();
 					},
 					end: function () {
 						canvas.style.display = '';
 						renderer.domElement.style.display = 'none';
+						document.getElementById('chat').style.display = 'none';
 
 						grideo.pause();
+						chatBot.destroy();
 					},
 					render: function () {
-						camera.position.z = 20; //temp
-						//camera.position.y = 1;
-						//camera.rotation.x = -0.1;
-						camera.rotation.y = -0.4;
-						if(grideo.readyState >= grideo.HAVE_ENOUGH_DATA){
-							grideoTexture.needsUpdate = true;
+						if (controls && camera) {
+							controls.update(clock.getDelta());
+							if(grideo.readyState >= grideo.HAVE_ENOUGH_DATA){
+								grideoTexture.needsUpdate = true;
+							}
+							renderer.render(scene, camera, null, true);
 						}
-						renderer.render(scene, camera, null, true);
 					}
 				};
 			});
@@ -875,7 +917,7 @@
 			});
 		}
 
-		init();
-		//window.onload = init;
+		//init();
+		window.onload = init;
 	});
 }());
