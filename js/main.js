@@ -154,6 +154,16 @@
 					lastMouseY = y;
 				}
 
+				function toggle(evt) {
+					if (evt.which === 32) {
+						if (trainVideo.paused) {
+							trainVideo.play();
+						} else {
+							trainVideo.pause();
+						}
+					}
+				}
+
 				hueSat = seriously.effect('hue-saturation');
 				hueSat.hue = 0;
 				hueSat.saturation = 0;
@@ -180,12 +190,14 @@
 						lastTimerTime = 0;
 						trainVideo.play();
 						window.addEventListener('mousemove', mouseMove, false);
+						window.addEventListener('keypress', toggle, false);
 						play.style.display = 'block';
 						play.addEventListener('click', nextScenario, false);
 					},
 					stop: function () {
 						running = false;
 						window.removeEventListener('mousemove', mouseMove, false);
+						window.removeEventListener('keypress', toggle, false);
 						trainVideo.pause();
 						play.style.display = '';
 						play.removeEventListener('click', nextScenario, false);
@@ -437,6 +449,16 @@
 					nextScenario();
 				}
 
+				function toggle(evt) {
+					if (evt.which === 32) {
+						if (reformat.source.original.paused) {
+							reformat.source.original.play();
+						} else {
+							reformat.source.original.pause();
+						}
+					}
+				}
+
 				return {
 					aliases: {
 						width: reformat,
@@ -449,10 +471,12 @@
 						}
 						reformat.source.original.play();
 						reformat.source.original.addEventListener('ended', ended, false);
+						window.addEventListener('keypress', toggle, false);
 					},
 					stop: function () {
 						reformat.source.original.pause();
 						reformat.source.original.removeEventListener('ended', ended, false);
+						window.removeEventListener('keypress', toggle, false);
 					}/*,
 					render: function () {
 					}*/
@@ -879,6 +903,10 @@
 							dialog: [
 								{
 									prompt: 'We have a lot more exploring to do.'
+								},
+								{
+									prompt: 'To be continued.',
+									delay: 1300
 								}
 							]
 						});
