@@ -38,6 +38,8 @@
 
 			if (source.ready) {
 				this.setReady();
+			} else {
+				this.setUnready();
 			}
 			resize();
 		}

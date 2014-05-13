@@ -2161,14 +2161,18 @@
 		EffectNode.prototype.setReady = function () {
 			var i,
 				input,
-				key;
+				key,
+				effect;
 
 			if (!this.ready) {
-				for (key in this.effect.inputs) {
-					if (this.effect.inputs.hasOwnProperty(key)) {
+				effect = this.effect;
+				for (key in effect.inputs) {
+					if (effect.inputs.hasOwnProperty(key)) {
 						input = this.effect.inputs[key];
 						if (input.type === 'image' &&
-								(!this.sources[key] || !this.sources[key].ready)) {
+								(!this.sources[key] || !this.sources[key].ready) &&
+								(!effect.requires || effect.requires.call(this, key, this.inputs))
+								) {
 							return;
 						}
 					}
@@ -2187,14 +2191,18 @@
 		EffectNode.prototype.setUnready = function () {
 			var i,
 				input,
-				key;
+				key,
+				effect;
 
 			if (this.ready) {
-				for (key in this.effect.inputs) {
-					if (this.effect.inputs.hasOwnProperty(key)) {
-						input = this.effect.inputs[key];
+				effect = this.effect;
+				for (key in effect.inputs) {
+					if (effect.inputs.hasOwnProperty(key)) {
+						input = effect.inputs[key];
 						if (input.type === 'image' &&
-								(!this.sources[key] || !this.sources[key].ready)) {
+								(!this.sources[key] || !this.sources[key].ready) &&
+								(!effect.requires || effect.requires.call(this, key, this.inputs))
+								) {
 							this.ready = false;
 							break;
 						}
@@ -2289,7 +2297,7 @@
 		};
 
 		EffectNode.prototype.render = function () {
-			var i,
+			var key,
 				frameBuffer,
 				effect = this.effect,
 				that = this,
@@ -2312,15 +2320,15 @@
 			}
 
 			if (this.dirty && this.ready) {
-				for (i in this.sources) {
-					if (this.sources.hasOwnProperty(i) &&
-						(!effect.requires || effect.requires.call(this, i, this.inputs))) {
+				for (key in this.sources) {
+					if (this.sources.hasOwnProperty(key) &&
+						(!effect.requires || effect.requires.call(this, key, this.inputs))) {
 
 						//todo: set source texture in case it changes?
 						//sourcetexture = this.sources[i].render() || this.sources[i].texture
 
-						inPlace = typeof this.inPlace === 'function' ? this.inPlace(i) : this.inPlace;
-						this.sources[i].render(!inPlace);
+						inPlace = typeof this.inPlace === 'function' ? this.inPlace(key) : this.inPlace;
+						this.sources[key].render(!inPlace);
 					}
 				}
 
